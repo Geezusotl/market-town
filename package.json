@@ -1,0 +1,26 @@
+{
+  "name": "market-town",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "A reproducible closed economy experiment, with transparent accounting and paired scenarios.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/prepare.mjs && tsc && node scripts/build.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "compare": "node scripts/compare.mjs",
+    "bench": "node scripts/benchmark.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test:browser": "playwright test",
+    "check": "npm test && npm run test:browser"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@types/node": "24.19.2",
+    "fast-check": "4.10.2",
+    "prettier": "3.6.2",
+    "typescript": "7.0.2"
+  }
+}

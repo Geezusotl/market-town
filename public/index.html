@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Market Town · experiment notebook</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./" class="brand"
+        >Market Town<span>EXPERIMENT NOTEBOOK / 001</span></a
+      ><span class="tag">Working prototype</span>
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow">ONE TOWN. TWO POSSIBLE FUTURES.</p>
+        <h1>What happens when<br />a supplier slows down?</h1>
+        <p class="lead">
+          Start with the same town. Halve one supplier’s production for 30 days.
+          Follow the goods, the wages, and what happens next.
+        </p>
+      </section>
+      <form id="controls">
+        <label
+          >Allocation seed
+          <input
+            id="seed"
+            type="number"
+            min="0"
+            max="4294967295"
+            step="1"
+            value="0"
+            required /></label
+        ><button id="compare" type="submit">
+          Run the comparison <span aria-hidden="true">↗</span></button
+        ><button id="cancel" type="button" class="secondary">Stop</button>
+      </form>
+      <p id="status" role="status" aria-live="polite">Preparing the town…</p>
+      <section class="town-panel" aria-labelledby="town-title">
+        <div class="section-title">
+          <h2 id="town-title">Watch the town unfold.</h2>
+          <p id="town-day" role="status">Select a day to explore.</p>
+        </div>
+        <div class="timeline">
+          <label
+            >Town
+            <select id="branch">
+              <option value="changed">Disrupted</option>
+              <option value="baseline">Unchanged</option>
+            </select></label
+          ><button id="play" type="button">Play</button
+          ><button id="advance" type="button" class="secondary">Next day</button
+          ><label
+            >Speed
+            <select id="speed">
+              <option value="1">1 day / step</option>
+              <option value="5">5 days / step</option>
+            </select></label
+          ><label class="scrubber"
+            >Day
+            <input
+              id="day"
+              type="range"
+              min="0"
+              max="365"
+              value="365"
+              aria-label="Simulation day"
+          /></label>
+        </div>
+        <p class="caption">
+          Pause or drag the timeline to replay a day. Select a business to open
+          its books. The map is a schematic of the six firms, not a simulation
+          of transport distances.
+        </p>
+        <div id="town-map" class="town-map" aria-label="Town businesses"></div>
+        <div class="resident">
+          <div>
+            <h3>Meet a household</h3>
+            <label
+              >Household
+              <select id="household"></select
+            ></label>
+          </div>
+          <p id="household-info"></p>
+        </div>
+        <p id="town-error" role="alert"></p>
+      </section>
+      <section class="summary" aria-label="Scenario results">
+        <article>
+          <p class="eyebrow">
+            <span class="dot baseline"></span>UNCHANGED TOWN
+          </p>
+          <h2 id="baseline-count">—</h2>
+          <p>goods consumed by day 90</p>
+          <p id="baseline-detail"></p>
+        </article>
+        <article>
+          <p class="eyebrow">
+            <span class="dot changed"></span>SUPPLIER DISRUPTION
+          </p>
+          <h2 id="changed-count">—</h2>
+          <p>goods consumed by day 90</p>
+          <p id="changed-detail"></p>
+        </article>
+        <aside>
+          <p class="eyebrow">WHAT CHANGED?</p>
+          <h2 id="difference">—</h2>
+          <p id="outcome">Run an experiment to compare.</p>
+          <small>A model outcome, not a forecast.</small>
+        </aside>
+      </section>
+      <section class="chart-area">
+        <div class="section-title">
+          <h2>Daily household consumption</h2>
+          <p>Blue: unchanged · Rust: disrupted · Shaded: days 31–60</p>
+        </div>
+        <svg
+          id="chart"
+          viewBox="0 0 900 240"
+          role="img"
+          aria-label="Daily consumption comparison"
+        ></svg>
+        <p class="caption">
+          Both branches share days 1–30. One input supplier operates at half
+          capacity during days 31–60. The chart ends at day 90; the table below
+          continues through day 365. Seeds affect allocation, not aggregate
+          uncertainty in this homogeneous model.
+        </p>
+      </section>
+      <section class="year">
+        <h2>Day 90 is not the whole story.</h2>
+        <p id="year-warning" role="status"></p>
+        <table>
+          <caption>
+            Cumulative goods consumed through day 365
+          </caption>
+          <thead>
+            <tr>
+              <th>Pricing after day 30</th>
+              <th>Unchanged</th>
+              <th>Disrupted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Adaptive rule</th>
+              <td id="year-baseline">—</td>
+              <td id="year-changed">—</td>
+            </tr>
+            <tr>
+              <th>Fixed-price control</th>
+              <td id="year-fixed-baseline">—</td>
+              <td id="year-fixed">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="caption">
+          The fixed-price control holds the day 30 prices constant in both
+          branches. It separates physical supply and buffers from this model’s
+          price feedback. This is a sensitivity experiment, not a validated
+          economic forecast.
+        </p>
+      </section>
+      <section class="inspect">
+        <div>
+          <p class="eyebrow">FOLLOW THE CONSEQUENCES</p>
+          <h2>Open the books.</h2>
+          <p>
+            Select a business in the disrupted town. Its recent events show
+            transactions and production dependencies.
+          </p>
+          <label
+            >Business
+            <select id="firm">
+              <option value="I00">Input supplier I00</option>
+            </select></label
+          >
+          <p id="firm-info"></p>
+          <p class="caption">
+            The log keeps seven recent days. Replay the onset to inspect the
+            original disruption.
+          </p>
+          <button type="button" class="secondary" id="onset">
+            Inspect day 31</button
+          ><button type="button" class="secondary" id="latest">
+            Return to day 365
+          </button>
+        </div>
+        <div>
+          <h3 id="event-heading">Recent activity</h3>
+          <ol id="events" class="events"></ol>
+        </div>
+      </section>
+      <section class="save">
+        <h2>Keep your experiment</h2>
+        <p>
+          Export the disrupted branch, or restore a saved town. Saves include
+          the rules version and scenario. Maximum 2 MB.
+        </p>
+        <button id="export" type="button" class="secondary">
+          Download save</button
+        ><label class="file-label"
+          >Restore save
+          <input id="import" type="file" accept=".json,application/json"
+        /></label>
+        <p id="save-status" role="status"></p>
+      </section>
+      <details>
+        <summary>Read the model’s assumptions</summary>
+        <p>
+          60 households and six firms. Fixed workers also own their businesses.
+          Two suppliers produce inputs; four firms turn inputs into goods.
+          Wages, purchases and weekly owner distributions circulate a fixed
+          supply of money. Prices adjust within declared bounds. No banks,
+          taxes, credit, new businesses or real economic data. A firm closes
+          after seven consecutive missed payrolls; fixed ownership and no new
+          entry can make a shock’s effects permanent.
+        </p>
+        <p>
+          Explanations show recorded dependencies and conditions, not proven
+          real world causation. Seller attribution in the pooled market is
+          bookkeeping, not physical lot tracing. The unchanged and disrupted
+          towns are deterministic. They run in your browser, not on an
+          unattended server.
+        </p>
+      </details>
+      <footer>
+        Built to be inspected.
+        <span>TypeScript simulation · no model API · no account needed</span>
+      </footer>
+    </main>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
