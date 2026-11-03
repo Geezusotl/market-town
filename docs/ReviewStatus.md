@@ -14,3 +14,8 @@ Next: return the revised review packet to the independent reviewer for targeted 
 
 
 November 3 interface update: schematic business map, household inspection, deterministic worker replay, timeline branch controls and play/pause added. Browser regression checks now cover those controls and that exported state matches the viewed branch/day. An initial Firefox run hit the default five-second readiness wait under load; the final readiness wait is 15 seconds, separate from the unchanged 100 ms worker roundtrip target. WebKit and remote CI remain unverified. No additional external review handoff is required from the user now.
+
+
+## GitHub verification, November 3, 2026
+
+[Clean runner verification](https://github.com/Geezusotl/market-town/actions/runs/41714801072) passed for source commit a311c35bedeecfcb620c537c4b1bcc789e6ced05: 41 Node tests, 3 accounting injections, 12 economic-rule mutations and 12 browser tests across Chromium, Firefox and WebKit. Earlier statements about WebKit and remote CI describe prior local-only checks. Native Windows and real phone hardware remain unverified. Pages publishing is configured separately and is not yet confirmed live.

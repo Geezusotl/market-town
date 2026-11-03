@@ -23,3 +23,8 @@ No service activation, GitHub write, public deployment or claim of a production-
 ## Interactive interface, November 3
 
 The map, household finances, branch selection, deterministic replay, play/pause, one/five-day playback, and viewed-state export are implemented. Current checks: 41 Node tests pass; 8 Chromium/Firefox tests pass. The first browser run had a five-second Firefox initial-readiness timeout; the rerun uses a separate 15-second readiness wait. The 100 ms worker response target is unchanged. Initial and final logs are retained. WebKit remains unverified. Earlier headless benchmarks and economic mutation results describe the unchanged 0.2 economic rules; they were not rerun as interface benchmarks. No repository or public deployment exists yet. Further external review is an optional broad milestone check, not a required relay step now.
+
+
+## GitHub verification, November 3, 2026
+
+[Clean runner verification](https://github.com/Geezusotl/market-town/actions/runs/41714801072) passed for source commit a311c35bedeecfcb620c537c4b1bcc789e6ced05: 41 Node tests, 3 accounting injections, 12 economic-rule mutations and 12 browser tests across Chromium, Firefox and WebKit. Earlier statements about WebKit and remote CI describe prior local-only checks. Native Windows and real phone hardware remain unverified. Pages publishing is configured separately and is not yet confirmed live.
